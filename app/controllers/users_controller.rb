@@ -4,11 +4,11 @@ class UsersController < ApplicationController
 
   def create
     @user = User.create(user_params)
-    if user.valid?
+    if @user.valid?
       token = JsonWebToken.encode(user_id: @user.id)
       time = Time.now + 24.hours.to_i
       render json: { jwt: token, exp: time.strftime('%m-%d-%Y %H:%M'),
-                     username: @user.username, email: @user.phone, role: @user.role, phone: @user.phone }, status: :ok
+                     username: @user.username, email: @user.email, role: @user.role }, status: :ok
     else
       render json: { errors: user.errors.full_message }
     end

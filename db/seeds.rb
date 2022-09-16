@@ -31,3 +31,4 @@ user3 = User.create(
   email: "example@email.com",
   role: "user"
 )
+puts "####### DONE SEEDING ######"

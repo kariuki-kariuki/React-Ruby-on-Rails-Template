@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { UserContext } from "../../context/usercontext";
 import "./signup.css";
 
 function SignUp() {
@@ -6,8 +7,9 @@ function SignUp() {
   const [password, setPassword] = useState("");
   const [password_confirmation, setPasswordCon] = useState("");
   const [email, setEmail] = useState('')
-  const [user, setUser] = useState(null);
+  const {setUser} = useContext(UserContext)
   const [error, setError] = useState(null)
+  const role = "user"
   const [error1, setError1] = useState(null);
 
   const handleSubmit = (e) => {
@@ -40,11 +42,12 @@ function SignUp() {
     const registrationData = {
       username: username,
       password: password,
-      // password_confirmation: password_confirmation,
-      email: email
+      password_confirmation: password_confirmation,
+      email: email,
+      role: role
     };
 
-    fetch("http://localhost:3000/login", {
+    fetch("http://localhost:3000/users", {
       method: 'POST',
       headers: {
         Accept : 'application/json',
@@ -55,7 +58,14 @@ function SignUp() {
     .then((r) => {
       if (r.ok) {
         r.json().then(r => {
+          setUser(r)
           localStorage.setItem("jwt",r.jwt)
+          setEmail('')
+          setPassword('')
+          setPasswordCon('')
+          setError('')
+          setError1('')
+          setUsername('')
         });
       } else {
         alert("An error occured while login in");
@@ -77,7 +87,7 @@ function SignUp() {
             type="text"
             name=""
             className="w3-input w3-border w3-sand"
-            id=""
+            
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
@@ -90,7 +100,7 @@ function SignUp() {
             type="email"
             name=""
             className="w3-input w3-border w3-sand"
-            id=""
+            
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -105,12 +115,14 @@ function SignUp() {
             type="password"
             className="w3-input w3-border w3-sand"
             name=""
-            id=""
+            
             value={password}
             required
             onChange={(e) => setPassword(e.target.value)}
           />
-          <label htmlFor="" className="w3-text-red">{error1 ? error1 : null}</label>
+          <label htmlFor="" className="w3-text-red">
+            {error1 ? error1 : null}
+          </label>
         </p>
         <p>
           <label htmlFor="" className="w3-text-black">
@@ -121,16 +133,20 @@ function SignUp() {
             type="password"
             className="w3-input w3-border w3-sand"
             name=""
-            id=""
+            
             required
             value={password_confirmation}
             onChange={(e) => passwordConfirmation(e)}
           />
-          <label htmlFor="error" className="w3-text-red">{error? error : null}</label>
+          <label htmlFor="error" className="w3-text-red">
+            {error ? error : null}
+          </label>
         </p>
         <button type="submit" className="w3-btn w3-brown">
           Submit
         </button>
+        <br />
+        <br />
       </form>
     </div>
   );

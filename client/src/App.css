@@ -1,4 +1,38 @@
+
 .hero{
   height: 100vh;
   width: 100%;
+}
+
+.card{
+  width: 50%;
+  height: 100vh;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+}
+
+.login{
+  width: 50%;
+  margin: 0 auto;
+  background: rgb(15, 15, 15);
+  height: 50%;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: bold;
+  font-family: 'Times New Roman', Times, serif;
+  flex-direction: column;
+  color: whitesmoke;
+}
+
+.button{
+  margin: 0 auto;
+}
+
+@keyframes spin {
+    from {transform:rotate(360deg);}
+    to {transform:rotate(0deg);}
 }
