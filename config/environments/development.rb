@@ -11,6 +11,9 @@ Rails.application.configure do
   # Do not eager load code on boot.
   config.eager_load = false
 
+  # config for active_storage/engine database
+  config.active_storage.service = :local
+
   # hosts configuration for railway app
   config.hosts << "react-ruby-on-rails-template-production.up.railway.app"
   # Show full error reports.
