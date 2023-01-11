@@ -11,6 +11,8 @@ Rails.application.configure do
   # Do not eager load code on boot.
   config.eager_load = false
 
+  # hosts configuration for railway app
+  config.hosts << "react-ruby-on-rails-template-production.up.railway.app"
   # Show full error reports.
   config.consider_all_requests_local = true
 
